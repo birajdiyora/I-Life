@@ -3862,7 +3862,7 @@ ol {
                     <div class="header__nav">
                         <nav class="header__menu">
                             <ul>
-                                <li class=""><a href="">Home</a></li>
+                                <li class=""><a href="{% url 'home' %}">Home</a></li>
                                 <li class=""><a href="">Product</a></li>
                                 <li class=""><a href="">Our Services</a></li>
                                 <li class=""><a href="">About Us</a></li>
@@ -3881,7 +3881,7 @@ ol {
                                 </div>
                               </div>
                             {% else %}
-                                <a href="" class="primary-btn">Sign In</a>
+                                <a href="{% url 'login' %}" class="primary-btn">Sign In</a>
                             {% endif %}
                         </div>
                     </div>
