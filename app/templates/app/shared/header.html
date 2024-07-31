@@ -1,0 +1,68 @@
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <ul class="header__top__widget">
+                        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
+                        <li><i class="fa fa-envelope-o"></i> ILifeFire@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <div class="header__top__right">
+                        <div class="header__top__phone">
+                            <i class="fa fa-phone"></i>
+                            <span>(91+ 9157541292) </span>
+                        </div>
+                        <div class="header__top__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-google"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                    <a href="{% url 'home' %}"><img src="" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class=""><a href="{% url 'home' %}">Home</a></li>
+                            <li class=""><a href="{% url 'home' %}">Product</a></li>
+                            <li class=""><a href="{% url 'home' %}">Our Services</a></li>
+                            <li class=""><a href="{% url 'home' %}">About Us</a></li>
+                            <li class=""><a href="{% url 'home' %}">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header__nav__widget">
+                        {% if user.is_authenticated %}
+                        <div class="dropdown show">
+                            <a class="btn primary-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ user.first_name }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a href="" class="dropdown-item">Profile</a>
+                              <a href="" class="dropdown-item" data-confirm="Are you sure want to logout?">Sign Out</a>
+                            </div>
+                          </div>
+                        {% else %}
+                            <a href="" class="primary-btn">Sign In</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
+        </div>
+    </div>
+</header>
