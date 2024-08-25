@@ -16,40 +16,85 @@
         </div>
     </div>
 </div> -->
+
 <section class="contact spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 offset-lg-3">
+                <div id="success-alert" class="alert alert-success alert-dismissible" style="display:none;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> Login successful.
+                </div>
+                
+                <div id="error-alert" class="alert alert-danger alert-dismissible" style="display:none;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> <span id="error-message">An error occurred.</span>
+                </div>
                 <div class="contact__form">
-                    <form method="POST" action="">
+                    <form id="LoginForm" method="POST" action="javascript:void(0);">
                         {% csrf_token %}
-                            <label class="form-group"><b><h5>Email</h5></b></label>
-                            <input id="email" type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name="email" value="{{ form.email.value|default_if_none:'' }}" required autocomplete="email" autofocus>
-                            {% for error in form.email.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ error }}</strong>
-                                </span>
-                            {% endfor %}
-                            <label class="form-group"><b><h5>Password</h5></b></label>
-                            <input id="password" type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" name="password" required autocomplete="current-password">
-                            {% for error in form.password.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ error }}</strong>
-                                </span>
-                            {% endfor %}
-                            <button type="submit" class="site-btn">
-                                Login
-                            </button>
-                            {% if 'password_reset' in request.resolver_match.url_name %}
-                                <a class="btn btn-link" href="">
-                                    Forgot Your Password?
-                                </a>
-                            {% endif %}
-                            <a class="btn btn-link" href="{% url 'register' %}">Join Us</a>
+                        <label class="form-group"><b><h5>Email</h5></b></label>
+                        <input id="email" type="email" class="form-control" name="email">
+                        <label class="form-group"><b><h5>Password</h5></b></label>
+                        <input id="password" type="password" class="form-control" name="password">
+                        <button type="submit" class="site-btn">Login</button>
+                        <a class="btn btn-link" href="{% url 'register' %}">Join Us</a>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>        
 </section>
+<script>
+    jQuery("#LoginForm").on("submit", function(e) {
+    e.preventDefault();
+    
+    var email = jQuery("#email").val().trim();
+    var password = jQuery("#password").val().trim();
+
+    // Clear previous alerts
+    jQuery("#error-alert").hide();
+    jQuery("#success-alert").hide();
+
+    // Basic validation
+    // if (!email) {
+    //     jQuery("#error-message").text("Email is required.");
+    //     jQuery("#error-alert").show();
+    //     return;
+    // }
+    // if (!password) {
+    //     jQuery("#error-message").text("Password is required.");
+    //     jQuery("#error-alert").show();
+    //     return;
+    // }
+
+    jQuery.ajax({
+        type: "POST",
+        url: "{% url 'login' %}",
+        data: jQuery("#LoginForm").serialize(),
+        success: function(response) {
+            if (response.success) {
+                jQuery("#success-alert").show();
+                window.location.href = "{% url 'home' %}"; // Redirect to home
+                setTimeout(function() {
+                    jQuery("#success-alert").fadeOut();
+                }, 3000);
+            } else {
+                jQuery("#error-message").text(response.message);
+                jQuery("#error-alert").show();
+                setTimeout(function() {
+                    jQuery("#error-alert").fadeOut();
+                }, 3000);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            jQuery("#error-message").text("An unexpected error occurred.");
+            jQuery("#error-alert").show();
+            setTimeout(function() {
+                jQuery("#error-alert").fadeOut();
+            }, 3000);
+        }
+    });
+});
+
+</script>
 {% endblock %}

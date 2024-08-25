@@ -4,28 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
     <title>ILife</title>
     {% load static %}
-    <!-- <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"> -->
     <!-- <link rel="stylesheet" href="{% static 'css/app.css' %}"> -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"> -->
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <!-- <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css"> -->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/star-rating-svg.css' %}" type="text/css">
+	<!-- <link rel="stylesheet" href="{% static 'js/jquery-3.3.1.min.js' %}" type="text/javascript">
+	<link rel="stylesheet" href="{% static 'js/jquery-ui.min.js' %}" type="text/javascript">
+	<link rel="stylesheet" href="{% static 'js/jquery.magnific-popup.min.js' %}" type="text/javascript">
+	<link rel="stylesheet" href="{% static 'js/jquery.nice-select.min.js' %}" type="text/javascript">
+	<link rel="stylesheet" href="{% static 'js/jquery.slicknav.js' %}" type="text/javascript"> -->
+	<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+	
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"> -->
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Popper.js -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script> -->
+
+
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+
 
 
     <style>
         .footer set-bg{
-    border-top: 3px solid black;
-}
+    	border-top: 3px solid black;
+		}
         html,
 body {
 	height: 100%;
@@ -43,8 +72,16 @@ body {
 }
 
 
-
-
+#product_detail_name{
+	font-size: 30px;
+	font-weight: bold;
+	border-bottom: 1px solid black;
+	padding: 5px;
+	width: 100%;
+}
+#product_detail_description{
+	padding-top: 10px;
+}
 h1,
 h2,
 h3,
@@ -1179,7 +1216,8 @@ ol {
 	color: #db2d2e;
 	font-weight: 700;
 	border-top: 1px solid #ebebeb;
-	padding-left: 120px;
+	padding-left: 20px;
+	/* position: -ms-page; */
 	padding-top: 14px;
 	padding-bottom: 11px;
 }
@@ -3817,12 +3855,9 @@ ol {
 
 </head>
 <body>
-    <!-- <div id="preloder">
-        <div class="loader"></div>
-    </div>
-     -->
-    <!-- header -->
-
+	<script src="{% static 'js/ojs/jquery.star-rating-svg.js' %}"></script>
+ 
+	
 
     <header class="header">
         <div class="header__top">
@@ -3838,7 +3873,7 @@ ol {
                         <div class="header__top__right">
                             <div class="header__top__phone">
                                 <i class="fa fa-phone"></i>
-                                <span>(91+ 9157541292) </span>
+                                <span>(+91 9157541292) </span>
                             </div>
                             <div class="header__top__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -3863,12 +3898,13 @@ ol {
                         <nav class="header__menu">
                             <ul>
                                 <li class=""><a href="{% url 'home' %}">Home</a></li>
-                                <li class=""><a href="">Product</a></li>
-                                <li class=""><a href="">Our Services</a></li>
-                                <li class=""><a href="">About Us</a></li>
-                                <li class=""><a href="">Contact Us</a></li>
+                                <li class=""><a href="{% url 'product' %}">Product</a></li>
+                                <li class=""><a href="{% url 'service' %}">Our Services</a></li>
+                                <li class=""><a href="{% url 'about' %}">About Us</a></li>
+                                <li class=""><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </nav>
+						<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
                         <div class="header__nav__widget">
                             {% if user.is_authenticated %}
                             <div class="dropdown show">
@@ -3877,14 +3913,13 @@ ol {
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                   <a href="" class="dropdown-item">Profile</a>
-                                  <a href="" class="dropdown-item" data-confirm="Are you sure want to logout?">Sign Out</a>
+                                  <a href="{% url 'logout' %}" id = "logout" class="dropdown-item" data-confirm="Are you sure want to logout?">Sign Out</a>
                                 </div>
                               </div>
                             {% else %}
                                 <a href="{% url 'login' %}" class="primary-btn">Sign In</a>
                             {% endif %}
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="canvas__open">
@@ -3897,7 +3932,7 @@ ol {
     <!-- header end -->
     {% block content %}
     {% endblock %}
-    <script src="{% static 'js/jquery-3.3.1.min.js'}"></script>
+    <!-- <script src="{% static 'js/jquery-3.3.1.min.js'}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js'}"></script>
     <script src="{% static 'js/jquery.nice-select.min.js'}"></script>
     <script src="{% static 'js/jquery-ui.min.js'}"></script>
@@ -3905,45 +3940,92 @@ ol {
     <script src="{% static 'js/mixitup.min.js'}"></script>
     <script src="{% static 'js/jquery.slicknav.js'}"></script>
     <script src="{% static 'js/owl.carousel.min.js'}"></script>
-    <script src="{% static 'js/main.js'}"></script>
-    <script src="{% static 'js/jquery.star-rating-svg.js'}"></script>
+    <script src="{% static 'js/main.js'}"></script>-->
+    
+	<!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+		console.log("Hello");
+	</script> -->
+	<!-- <script src="{% static 'js/owl.carousel.min.js'}"></script> -->
     <script>
         jQuery(document).ready(function() {
+			var csrftoken = jQuery('meta[name="csrf-token"]').attr('content');
+			jQuery.ajaxSetup({
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+        });
+			$("#logout").on("click",function(e){
+				console.log("logout click....");
+				$.ajax({
+                type: "POST",
+                url: "{% url 'logout' %}",
+                success: function(data) {
+                    console.log(data);
+                    window.location.href = "{% url 'home' %}";  // Redirect after logout
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+			});
             jQuery(document).on("click", "[data-confirm]", function(e) {
                 e.preventDefault();
                 var message = jQuery(this).data('confirm') ? jQuery(this).data('confirm') : 'Are you sure?';
-                if (confirm(message)) {
-                    var form = jQuery('<form />').attr('method', 'post').attr('action', jQuery(this).attr('href'));
-                    message != "Are you sure want to logout?" ? jQuery('<input />').attr('type', 'hidden').attr('name', '_method').attr('value', 'delete').appendTo(form) : "";
-                    jQuery('<input />').attr('type', 'hidden').attr('name', '_token').attr('value', jQuery('meta[name="csrf-token"]').attr('content')).appendTo(form);
-                    jQuery('body').append(form);
-                    form.submit();
-                }
+                // if (confirm(message)) {
+                //     var form = jQuery('<form />').attr('method', 'post').attr('action', jQuery(this).attr('href'));
+                //     message != "Are you sure want to logout?" ? jQuery('<input />').attr('type', 'hidden').attr('name', '_method').attr('value', 'delete').appendTo(form) : "";
+                //     jQuery('<input />').attr('type', 'hidden').attr('name', '_token').attr('value', jQuery('meta[name="csrf-token"]').attr('content')).appendTo(form);
+                //     jQuery('body').append(form);
+                //     form.submit();
+                // }
             });
 
-            jQuery(".place_feedback").on("click",function(e){
-                var _f = jQuery("#FeedbackForm");
-                jQuery('#preloder, .loader').show();
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "{!! route('feedback') !!}",
-                    data: jQuery(_f).serialize(),
-                })
-                .done(function (data) {
-                    jQuery('#preloder, .loader').hide();
-                    jQuery("#FeedbackModel").modal('hide');
-                }).fail(function (error) {
-                    jQuery('#preloder, .loader').hide();
-                    jQuery(_f).find(".has-error").remove();
-                    var response = JSON.parse(error.responseText);
-                    $.each(error.responseJSON, function (key, value) {
-                            var input = '[name=' + key + ']';
-                            jQuery(_f).find(input).parent().find(".has-error").length == 0 ? jQuery(_f).find(input).parent().append("<span class='has-error'>"+ value +"</span>") : jQuery(_f).find(input).parent().find('.has-error').html(value);
-                    });
-                });
-            });
+            jQuery(".place_feedback").on("click", function(e) {
+    e.preventDefault();
+    var _f = jQuery("#FeedbackForm");
 
+    jQuery('#preloder, .loader').show();  // Show preloader
+    jQuery("#error-alert").hide();  // Hide any previous error alerts
+
+    // Submit the form via AJAX
+    $.ajax({
+        type: "POST",
+        url: "{% url 'feedback' %}",
+        data: jQuery(_f).serialize(),
+        success: function(data) {
+            jQuery('#preloder, .loader').hide();
+            if (data.success) {
+                jQuery("#success-alert").show();
+                setTimeout(function() {
+                    jQuery("#success-alert").hide();
+                }, 3000);
+                jQuery("#FeedbackForm")[0].reset();  // Reset the form
+                // jQuery("#FeedbackModel").modal('hide');  // Hide the modal
+            } else {
+                jQuery("#error-message").text(data.message);
+                jQuery("#error-alert").show();
+            }
+        },
+        error: function(jqXHR) {
+            jQuery('#preloder, .loader').hide();
+            var response = jqXHR.responseJSON;
+			// console.log("erorr-----------");
+            console.log(response.message);
+            if (response && response.message) {
+                jQuery("#error-message").text(response.message);
+            } else {
+                jQuery("#error-message").text("An unexpected error occurred.");
+            }
+            jQuery("#error-alert").show();
+        }
+    });
+});
+			$('#FeedbackModel').on('hidden.bs.modal', function () {
+        		$(this).find('form')[0].reset();
+        		$(".has-error").remove(); // Remove error messages
+        		$("#rateInput").val(''); // Clear the rating input
+        		$(".my-rating").starRating('setRating', 4); // Reset the star rating
+   			});
             $(".my-rating").starRating({
                 initialRating: 4,
                 strokeColor: '#894A00',
@@ -3951,9 +4033,11 @@ ol {
                 starSize: 25,
                 minRating: 1,
                 callback: function(currentRating, $el){
+					console.log(currentRating);
                     $("#rateInput").val(currentRating);
                 }
             });
+			$("#rateInput").val(4);
         })
     </script>
 
@@ -3981,7 +4065,7 @@ ol {
                     <ul>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Contact: +91 985 6589 632</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Email: ILifeFire@gmail.com</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Inquiry</a></li>
+                        <li><a href="{% url 'product' %}"><i class="fa fa-angle-right"></i> Inquiry</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="#FeedbackModel" data-toggle="modal" data-target="#FeedbackModel"><i class="fa fa-angle-right"></i> Feedback</a></li>
                         {% endif %}
@@ -4006,35 +4090,45 @@ ol {
 <div class="modal fade bs-example-modal-lg" id="FeedbackModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form action="javascript:;" method="post" id="FeedbackForm">
-                {% csrf_token %}
-                {% if user.is_authenticated %}
-                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                {% endif %}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Place Your Feedback</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal_form">
-                        <div class="form-group">
-                            <div class="my-rating"></div>
-                            <input type="hidden" name="rating" id="rateInput">
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea name="description" cols="30" rows="10" class="form-control" placeholder="description" required></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="javascript:;" type="submit" class="btn btn-primary place_feedback">Submit</a>
-                </div>
-            </form>
-        </div>
+			<form action="javascript:;" method="post" id="FeedbackForm">
+				{% csrf_token %}
+				{% if user.is_authenticated %}
+					<input type="hidden" name="user_id" value="{{ user.id }}">
+				{% endif %}
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Place Your Feedback</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="success-alert" class="alert alert-success alert-dismissible" style="display:none;">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Success!</strong> Your feedback was sent successfully.
+					</div>
+					
+					<div id="error-alert" class="alert alert-danger alert-dismissible" style="display:none;">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Error!</strong> <span id="error-message">An error occurred.</span>
+					</div>
+					<div class="modal_form">
+						<div class="form-group">
+							<div class="my-rating"></div>
+							<input type="hidden" name="rating" id="rateInput">
+						</div>
+						<div class="form-group">
+							<label>Description</label>
+							<textarea name="description" cols="30" rows="10" class="form-control" placeholder="description" required></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<a href="javascript:;" type="submit" class="btn btn-primary place_feedback">Submit</a>
+				</div>
+			</form>
+		</div>
+		
     </div>
 </div>
 

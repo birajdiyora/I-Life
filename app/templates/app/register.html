@@ -20,52 +20,108 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 offset-lg-3">
+                <div id="success-alert" class="alert alert-success alert-dismissible" style="display:none;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> Registration successful.
+                </div>
+                
+                <div id="error-alert" class="alert alert-danger alert-dismissible" style="display:none;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> <span id="error-message">An error occurred.</span>
+                </div>
                 <div class="contact__form">
-                    <form method="POST" action="">
+                    <form id="registrationForm" method="POST" action="javascript:;">
                         {% csrf_token %}
-                        <label class="form-group"><b><h5>First Name</h5></b></label>
-                            <input id="first_name" type="text" class="form-control {% if form.first_name.errors %}is-invalid{% endif %}" name="first_name" value="{{ form.first_name.value }}" required autofocus>
-                            {% if form.first_name.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ form.first_name.errors.0 }}</strong>
-                                </span>
-                            {% endif %}
-                            <label class="form-group"><b><h5>Last Name</h5></b></label>
-                            <input id="last_name" type="text" class="form-control {% if form.last_name.errors %}is-invalid{% endif %}" name="last_name" value="{{ form.last_name.value }}" required autofocus>
-                            {% if form.last_name.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ form.last_name.errors.0 }}</strong>
-                                </span>
-                            {% endif %}
-                            <label class="form-group"><b><h5>Email</h5></b></label>
-                            <input id="email" type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name="email" value="{{ form.email.value }}" required>
-                            {% if form.email.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ form.email.errors.0 }}</strong>
-                                </span>
-                            {% endif %}
-                            <label class="form-group"><b><h5>Phone Number</h5></b></label>
-                            <input id="phone" type="text" class="form-control {% if form.phone.errors %}is-invalid{% endif %}" name="phone" value="{{ form.phone.value }}" required>
-                            {% if form.phone.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ form.phone.errors.0 }}</strong>
-                                </span>
-                            {% endif %}
-                            <label class="form-group"><b><h5>Password</h5></b></label>
-                            <input id="password" type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" name="password" required>
-                            {% if form.password.errors %}
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ form.password.errors.0 }}</strong>
-                                </span>
-                            {% endif %}
-                            <label class="form-group"><b><h5>Confirm Password</h5></b></label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            <button type="submit" class="site-btn">Join Us</button>
-                            <a class="btn btn-link" href="{% url 'login' %}">Existing user? Log in</a>
+                        <label><b>First Name</b></label>
+                        <input id="first_name" type="text" class="form-control" name="first_name" required>
+                        
+                        <label><b>Last Name</b></label>
+                        <input id="last_name" type="text" class="form-control" name="last_name" required>
+                        
+                        <label><b>Email</b></label>
+                        <input id="email" type="email" class="form-control" name="email" required>
+                        
+                        <label><b>Password</b></label>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        
+                        <label><b>Confirm Password</b></label>
+                        <input id="confirm_password" type="password" class="form-control" name="confirm_password" required>
+                        
+                        <button type="submit" id="submitBtn" class="site-btn">Join Us</button>
+                        <a class="btn btn-link" href="{% url 'login' %}">Existing user? Log in</a>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+    </div>        
 </section>
+<script>
+    $(document).ready(function() {
+    $('#submitBtn').on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        let firstName = $('#first_name').val();
+        let lastName = $('#last_name').val();
+        let email = $('#email').val();
+        let password = $('#password').val();
+        let confirmPassword = $('#confirm_password').val();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'register' %}",
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password: password,
+                confirm_password: confirmPassword
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#success-alert').show();
+                    $('#error-alert').hide();
+
+                    $('#first_name').val('');
+                    $('#last_name').val('');
+                    $('#email').val('');
+                    $('#password').val('');
+                    $('#confirm_password').val('');
+                    // Auto-hide success alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').fadeOut('slow');
+                    }, 3000);
+                    
+                } else {
+                    
+                    $("#error-message").text(response.message);
+                    $('#error-alert').show();
+                    $('#success-alert').hide();
+                    // Auto-hide error alert after 3 seconds
+                    setTimeout(function() {
+                        $('#error-alert').fadeOut('slow');
+                    }, 3000);
+                
+                }
+            },
+            error: function(xhr) {
+                console.log("erorr-----------");
+                let errors = xhr.responseJSON;
+                console.log(errors.message);
+                let errorMessage = '';
+                $.each(errors, function(key, value) {
+                    errorMessage += value + '<br>';
+                });
+                $('#error-message').text(errors.message);
+                $('#error-alert').show();
+                $('#success-alert').hide();
+                // Auto-hide error alert after 3 seconds
+                setTimeout(function() {
+                    $('#error-alert').fadeOut('slow');
+                }, 3000);
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

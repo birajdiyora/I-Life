@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <title>{{ app_name|default:'FS' }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ocss/core.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ocss/icon-font.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/datatables/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/datatables/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ocss/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ocss/dev.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/jquery-steps/jquery.steps.css' %}">
+
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+    {% include 'app/admin/shared/header.html' %}
+
+    {% include 'app/admin/shared/sidebar.html' %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block modals %}
+    {% endblock %}
+    <script src="{% static 'js/ojs/core.js' %}"></script>
+    <script src="{% static 'js/ojs/script.min.js' %}"></script>
+    <script src="{% static 'js/ojs/process.js' %}"></script>
+    <script src="{% static 'js/ojs/layout-settings.js' %}"></script>
+    <script src="{% static 'src/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'src/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'src/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'src/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'src/plugins/jquery-steps/jquery.steps.js' %}"></script>
+
+    <script>
+        jQuery(document).ready(function() {
+            jQuery(document).on("click", "[data-confirm]", function(e) {
+                e.preventDefault();
+                var message = jQuery(this).data('confirm') ? jQuery(this).data('confirm') : 'Are you sure?';
+                if (confirm(message)) {
+                    var form = jQuery('<form />').attr('method', 'post').attr('action', jQuery(this).attr('href'));
+                    message != "Are you sure want to logout?" ? jQuery('<input />').attr('type', 'hidden').attr('name', '_method').attr('value', 'delete').appendTo(form) : "";
+                    jQuery('<input />').attr('type', 'hidden').attr('name', 'csrfmiddlewaretoken').attr('value', '{{ csrf_token }}').appendTo(form);
+                    jQuery('body').append(form);
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

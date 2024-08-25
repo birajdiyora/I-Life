@@ -1,0 +1,180 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Product Details Section -->
+    <section class="car-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="car__details__pic">
+                        <div class="car__details__pic__large">
+                            {% if product.image %}
+                                <img class="car-big-img" src="{{ product.image.url }}" alt="{{ product.name }}" height="300px" width="200px">
+                            {% else %}
+                                <img class="car-big-img" height="300px" width="200px" src="{% static 'images/fireLogo.jpeg' %}" alt="{{ product.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="product_detail_name"id="product_detail_name">
+                                <h7>{{ product.name }}</h7>
+                            </div>
+                            <div class="product_detail_description"id="product_detail_description">
+                                <h7>{{ product.description }}</h7>
+                            </div>                            
+                            
+                        </div>
+                        <!-- <div class="car__item">
+                            <div class="car__item__text">
+                                <div class="car__item__text__inner">
+                                    <h5>{{ product.name }}</h5>
+                                </div>
+                                <div class="car__details__tab__info">
+                                    <h7>{{ product.description }}</h7>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="car__details__tab">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                    <div class="car__details__tab__info">
+                                        {{ product.description }}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="car__details__sidebar">
+                        <div class="car__details__sidebar__model">
+                            <ul>
+                                <li>Price <span>₹{{ product.price }}</span></li>
+                            </ul>
+                            <!-- Button to Trigger Modal -->
+                            <a href="#InquiryModel" id ="showDialog" data-toggle="modal" data-target="#InquiryModel" class="primary-btn">Get Today's Price</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inquiry Modal -->
+    <div class="modal fade bs-example-modal-lg" id="InquiryModel" tabindex="-1" role="dialog" aria-labelledby="InquiryModelLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <form action="" method="post" id="InquiryForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    {% if user.is_authenticated %}
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                    {% endif %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="InquiryModelLabel">Place Your Inquiry</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="success-alert" class="alert alert-success alert-dismissible" style="display:none;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Success!</strong> Inquiry added successfully.
+                        </div>
+                        
+                        <div id="error-alert" class="alert alert-danger alert-dismissible" style="display:none;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Error!</strong> <span id="error-message">An error occurred.</span>
+                        </div>
+                        
+                        <div class="modal_form">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ user.first_name }} {{ user.last_name }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ user.email }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ user.phone }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" cols="30" rows="10" class="form-control" placeholder="description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary place_inquiry">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            // Include CSRF token in AJAX requests
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+            console.log($);  // This should log the jQuery function
+            console.log($.fn.modal);
+            
+            
+            $('#InquiryModel').on('hidden.bs.modal', function () {
+                $(this).find('form')[0].reset();
+            });
+
+            jQuery(".place_inquiry").on("click",function(e){
+                e.preventDefault();
+                console.log("Hello......");
+                var _f = jQuery("#InquiryForm");
+                jQuery('#preloder, .loader').show();
+                // $('#InquiryModel').modal('hide');
+    
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add_inquiry' %}",
+                    data: jQuery(_f).serialize(),
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            console.log("sucess...........");
+                            jQuery('#preloder, .loader').hide();
+                            // $('#InquiryModel').modal('hide');
+                            jQuery("#success-alert").fadeIn();
+                            setTimeout(function() {
+                                jQuery("#success-alert").fadeOut();
+                            }, 3000);
+                        } else {
+                            jQuery('#preloder, .loader').hide();
+                            jQuery("#error-message").text(data.message);
+                            jQuery("#error-alert").fadeIn();
+                            setTimeout(function() {
+                                jQuery("#error-alert").fadeOut();
+                            }, 5000);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("error");
+                        jQuery('#preloder, .loader').hide();
+                        jQuery("#error-message").text("AJAX error: " + textStatus + " - " + errorThrown);
+                        jQuery("#error-alert").fadeIn();
+                        setTimeout(function() {
+                            jQuery("#error-alert").fadeOut();
+                        }, 5000);
+                    }
+                })
+                
+            });
+        });
+    </script>    
+    
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

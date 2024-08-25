@@ -15,8 +15,7 @@
 </section> -->
 
 <!-- <section class="hero spad set-bg" style="height: 550px; background-image: url('{% static 'images/fire-safety-banner.webp' %}'); background-size: cover; background-position: center;"> -->
-
-
+      
 <section class="services spad">
     <div class="container">
         <div class="row">
@@ -55,7 +54,6 @@
         </div>
     </div>
 </section>
-
 <section class="car spad">
     <div class="container">
         <div class="row">
@@ -73,13 +71,13 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 mix">
                     <div class="car__item">
                         <div class="car__item__pic__slider owl-carousel">
-                            {% for photo in product.gallery %}
-                                <img src="" alt="{{ product.name }}">
-                            {% endfor %}
                         </div>
                         <div class="car__item__text">
+                            <div class="product_image" style="height: 200px; width: 100%;">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="height: 200px; width: 100%;">
+                            </div>
                             <div class="car__item__text__inner">
-                                <h5><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></h5>
+                                <h5><a href="">{{ product.name }}</a></h5>
                             </div>
                             <div class="car__item__price">
                                 <h6>₹{{ product.price }}</h6>
