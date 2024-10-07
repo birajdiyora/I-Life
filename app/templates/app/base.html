@@ -3873,7 +3873,7 @@ ol {
                         <div class="header__top__right">
                             <div class="header__top__phone">
                                 <i class="fa fa-phone"></i>
-                                <span>(+91 9157541292) </span>
+                                <span>(+91 1234567890) </span>
                             </div>
                             <div class="header__top__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -3912,7 +3912,6 @@ ol {
                                     {{ user.first_name }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                  <a href="" class="dropdown-item">Profile</a>
                                   <a href="{% url 'logout' %}" id = "logout" class="dropdown-item" data-confirm="Are you sure want to logout?">Sign Out</a>
                                 </div>
                               </div>
@@ -4093,7 +4092,9 @@ ol {
 			<form action="javascript:;" method="post" id="FeedbackForm">
 				{% csrf_token %}
 				{% if user.is_authenticated %}
+
 					<input type="hidden" name="user_id" value="{{ user.id }}">
+					<input type="hidden" name="username" value="{{ user.first_name }}">
 				{% endif %}
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">Place Your Feedback</h5>

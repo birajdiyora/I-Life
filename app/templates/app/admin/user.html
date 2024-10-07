@@ -83,7 +83,7 @@
                 url: url,
                 type: 'POST',
                 headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',  // Ensure the CSRF token is set correctly
+                    'X-CSRFToken': '{{ csrf_token }}',  
                 },
                 success: function(response) {
                     if (response.success) {
@@ -91,7 +91,6 @@
                         $('#success-alert').show();
                         setTimeout(function() {
                             $('#success-alert').fadeOut();
-                            // window.location.reload();  // Reload the page after showing the success message
                         }, 3000);
                         $('tr[id="' + userId + '"]').remove();
                     } else {

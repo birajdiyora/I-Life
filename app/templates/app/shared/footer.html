@@ -20,7 +20,7 @@
                 <div class="footer__brand">
                     <h5>Information</h5>
                     <ul>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Contact: +91 985 6589 632</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Contact: +91 9999999</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Email: ILifeFire@gmail.com</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Inquiry</a></li>
                         {% if user.is_authenticated %}
@@ -50,7 +50,9 @@
             <form action="javascript:;" method="post" id="FeedbackForm">
                 {% csrf_token %}
                 {% if user.is_authenticated %}
+                    
                     <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <input type="hidden" name="username" value="{{ user.username }}">
                 {% endif %}
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Place Your Feedback</h5>

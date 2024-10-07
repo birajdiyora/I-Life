@@ -51,7 +51,6 @@
     var email = jQuery("#email").val().trim();
     var password = jQuery("#password").val().trim();
 
-    // Clear previous alerts
     jQuery("#error-alert").hide();
     jQuery("#success-alert").hide();
 
@@ -74,7 +73,7 @@
         success: function(response) {
             if (response.success) {
                 jQuery("#success-alert").show();
-                window.location.href = "{% url 'home' %}"; // Redirect to home
+                window.location.href = "{% url 'home' %}";
                 setTimeout(function() {
                     jQuery("#success-alert").fadeOut();
                 }, 3000);

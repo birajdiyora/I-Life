@@ -117,9 +117,8 @@
     </div>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            // Include CSRF token in AJAX requests
             var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-            console.log($);  // This should log the jQuery function
+            console.log($);  
             console.log($.fn.modal);
             
             
@@ -129,10 +128,8 @@
 
             jQuery(".place_inquiry").on("click",function(e){
                 e.preventDefault();
-                console.log("Hello......");
                 var _f = jQuery("#InquiryForm");
                 jQuery('#preloder, .loader').show();
-                // $('#InquiryModel').modal('hide');
     
                 $.ajax({
                     type: "POST",
@@ -147,6 +144,7 @@
                             jQuery('#preloder, .loader').hide();
                             // $('#InquiryModel').modal('hide');
                             jQuery("#success-alert").fadeIn();
+                            $('#InquiryModel').find('form')[0].reset();
                             setTimeout(function() {
                                 jQuery("#success-alert").fadeOut();
                             }, 3000);

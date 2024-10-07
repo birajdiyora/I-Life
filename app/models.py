@@ -39,6 +39,7 @@ class FailedJob(models.Model):
 
 class Feedback(models.Model):
     user_id = models.BigIntegerField()
+    username = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     rating = models.CharField(max_length=255)
     status = models.BooleanField(default=True)

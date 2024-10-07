@@ -35,7 +35,7 @@
                 <div class="car__filter__option">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <div class="car__filter__option__item">
+                            <!-- <div class="car__filter__option__item">
                                 <h6>Show On Page</h6>
                                 <select id="perPage">
                                     <option value="{% url 'products_list' %}?per_page=10" {% if request.GET.per_page == '10' %}selected{% endif %}>10</option>
@@ -52,7 +52,7 @@
                                     <option value="{% url 'products_list' %}?sort_by=asc" {% if request.GET.sort_by == 'asc' %}selected{% endif %}>Price: Lowest First</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="row">
@@ -89,7 +89,7 @@
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" style="height: 200px; width: 100%;">
                             </div>
                             <div class="car__item__text__inner">
-                                <h5><a href="">{{ product.name }}</a></h5>
+                                <h5><a href="{% url 'show_product' product.id%}">{{ product.name }}</a></h5>
                             </div>
                             <div class="car__item__price">
                                 <h6>₹{{ product.price }}</h6>

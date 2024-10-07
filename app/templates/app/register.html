@@ -87,7 +87,6 @@
                     $('#email').val('');
                     $('#password').val('');
                     $('#confirm_password').val('');
-                    // Auto-hide success alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').fadeOut('slow');
                     }, 3000);
@@ -97,7 +96,6 @@
                     $("#error-message").text(response.message);
                     $('#error-alert').show();
                     $('#success-alert').hide();
-                    // Auto-hide error alert after 3 seconds
                     setTimeout(function() {
                         $('#error-alert').fadeOut('slow');
                     }, 3000);
@@ -115,7 +113,6 @@
                 $('#error-message').text(errors.message);
                 $('#error-alert').show();
                 $('#success-alert').hide();
-                // Auto-hide error alert after 3 seconds
                 setTimeout(function() {
                     $('#error-alert').fadeOut('slow');
                 }, 3000);

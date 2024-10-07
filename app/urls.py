@@ -29,6 +29,10 @@ urlpatterns = [
     path('admin/products/delete/<int:pk>/', delete_product, name='product_delete'),
     path('admin/product/add/', store_product, name='add_product'),
     path('admin/product/update/<int:pk>/', update_product, name='product_update'),
+    path('admin/inquiries/', inquiry_list, name='inquiry_list'),
+    path('admin/inquiries/delete/<int:pk>/', delete_inquiry, name='delete_inquiry'),
+    path('admin/feedback/', feedback_list, name='feedback_list'),
+    path('admin/feedback/delete/<int:feedback_id>/', delete_feedback, name='delete_feedback')
 ]
 
 if settings.DEBUG:

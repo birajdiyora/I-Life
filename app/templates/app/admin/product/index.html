@@ -82,7 +82,6 @@
 <div class="modal fade bs-example-modal-lg" id="ProductEditModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <!-- The edit form will be dynamically loaded here using JavaScript -->
         </div>
     </div>
 </div>
@@ -112,7 +111,7 @@
                         $('#success-alert').show();
                         setTimeout(function() {
                             $('#success-alert').fadeOut();
-                            window.location.reload();  // Reload the page after showing the success message
+                            window.location.reload();  
                         }, 1400);
                     } else if ($('#ProductEditModel').hasClass('show')) {
                         console.log("in edit model -----------------");
@@ -120,11 +119,10 @@
                         $('#edit-success-alert').show();
                         setTimeout(function() {
                             $('#edit-success-alert').fadeOut();
-                             window.location.reload();  // Reload the page after showing the success message
+                             window.location.reload();  
                         }, 1500);
                     }
-                    $('#ProductEditModel').modal('hide'); // Close all modals
-                      // Reload the page to reflect updates
+                    $('#ProductEditModel').modal('hide'); 
                     } else {
                         if ($('#ProductAddModel').hasClass('show')) {
                         $('#error-alert').find('#error-message').text(response.message);
@@ -149,19 +147,14 @@
         });
     }
 
-    // Handle form submissions for both add and edit forms
     handleFormSubmission('#editable-form');
-
-    // Edit product
     $('.edit-product').on('click', function() {
         var productId = $(this).data('id');
         $.ajax({
             url: "{% url 'product_detail' 0 %}".replace('0', productId),
             method: 'GET',
             success: function(data) {
-                // Populate the edit modal with the product details
                 $('#ProductEditModel .modal-content').html(data.form);
-                // Re-attach the event listener after loading the form
                 handleFormSubmission('#ProductEditModel #editable-form');
             }
         });
@@ -175,19 +168,15 @@
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
             success: function(response) {
                 if (response.success) {
-                    // Display success alert
                     $('#delete-success-alert').show().delay(3000).fadeOut();
                     
-                    // Remove the deleted product row
                     $('tr[data-id="' + productId + '"]').remove();
                 } else {
-                    // Display error alert if the response contains an error
                     $('#delete-error-alert').find('#edit-error-message').text('Failed to delete the product.');
                     $('#delete-error-alert').show().delay(3000).fadeOut();
                 }
             },
             error: function(xhr, status, error) {
-                // Display error alert if an AJAX error occurs
                 $('#delete-error-alert').find('#edit-error-message').text('An error occurred while deleting the product.');
                 $('#delete-error-alert').show().delay(3000).fadeOut();
             }
